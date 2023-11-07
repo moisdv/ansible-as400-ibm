@@ -7,11 +7,6 @@
   gather_facts: true
   tasks:
 
-    - name: Return ibmi_facts
-      ibmi_cl_command:
-        cmd: 'WRKUSRJOB OFICIAL5'
-      register: as400_facts
-
     - name: debug ibmi_facts
-      debug:
-        var: as400_facts
+      msg: |
+        "{{ gather_facts['hostname'] }}"
