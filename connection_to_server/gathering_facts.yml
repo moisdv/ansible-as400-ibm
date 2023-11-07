@@ -8,5 +8,6 @@
   tasks:
 
     - name: debug ibmi_facts
-      msg: |
-        "{{ gather_facts['hostname'] }}"
+      debug:
+        msg: |
+          "{{ gather_facts['hostname'] }}"
