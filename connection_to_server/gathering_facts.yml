@@ -1,6 +1,7 @@
 ---
 - name: Gathering Facts from AS400
   hosts: all
+  connection: ssh
   gather_facts: true
   tasks:
 
