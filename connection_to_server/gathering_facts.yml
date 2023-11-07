@@ -7,7 +7,8 @@
 
     - name: Return ibmi_facts
       ansible_python_interpreter: /QOpenSys/pkgs/bin/python3
-      ibm.power_ibmi.ibmi_facts:
+      ibmi_cl_command:
+        cmd: 'WRKUSRJOB OFICIAL5'
       register: as400_facts
 
     - name: debug ibmi_facts
