@@ -1,0 +1,13 @@
+---
+- name: Gathering Facts from AS400
+  hosts: all
+  gather_facts: true
+  tasks:
+
+    - name: Return ibmi_facts
+      ibm.power_ibmi.ibmi_facts:
+      register: as400_facts
+
+    - name: debug ibmi_facts
+      debug:
+        var: as400_facts
