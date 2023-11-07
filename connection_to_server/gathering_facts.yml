@@ -10,4 +10,4 @@
     - name: debug ibmi_facts
       debug:
         msg: |
-          "{{ gather_facts['hostname'] }}"
+          "{{ ansible_facts['hostname'] }}"
