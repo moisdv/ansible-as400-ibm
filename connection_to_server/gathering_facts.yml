@@ -1,12 +1,13 @@
 ---
 - name: Gathering Facts from AS400
   hosts: all
+  vars:
+    ansible_python_interpreter: /QOpenSys/pkgs/bin/python3
   connection: ssh
   gather_facts: true
   tasks:
 
     - name: Return ibmi_facts
-      ansible_python_interpreter: /QOpenSys/pkgs/bin/python3
       ibmi_cl_command:
         cmd: 'WRKUSRJOB OFICIAL5'
       register: as400_facts
