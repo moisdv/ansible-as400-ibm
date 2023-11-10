@@ -3,11 +3,17 @@
   hosts: all
   vars:
     ansible_python_interpreter: /QOpenSys/pkgs/bin/python3
-  connection: ssh
+  #connection: ssh
   gather_facts: true
   tasks:
 
-    - name: debug ibmi_facts
-      debug:
-        msg: |
-          "{{ ansible_facts['hostname'] }}"
+      - name: Invoke sql commands
+        community.general.mssql_script:
+          login_user: ''
+          login_password: ''
+          login_host: '150.238.77.146'
+          login_port: '1433'
+          db: Operaciones
+          script: 'SELECT 1'
+        register: resultado
+
