@@ -19,5 +19,5 @@
       debug:
         msg: |
           "{{ ip_listing.row }}"
-      when: EVTW is defined 
+      when: '"EVTW" in ip_listing.row'
 
