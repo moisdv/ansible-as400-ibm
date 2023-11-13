@@ -4,12 +4,11 @@
   vars:
     ansible_python_interpreter: /QOpenSys/pkgs/bin/python3
   collections:
-    - community.general
+    - ibm.power_ibmi
   connection: ssh
   gather_facts: true
   tasks:
-    - name: Query scheduled job 
-      ibmi_ibm.power_ibmi.ibmi_sql_query:
-        sql: "SELECT SCDJOBNAME,STATUS,SBMTIMSTMP FROM QSYS2.SCHEDULED_JOB_INFOWHERE STATUS <> 'SCHEDULED' ORDER BY SCDJOBNAME"
 
-
+    - name: Testing
+      ibmi_sql_query:
+        sql: 'SELECT SCDJOBNAME,STATUS,SBMTIMSTMP FROM QSYS2.SCHEDULED_JOB_INFOWHERE STATUS <> 'SCHEDULED' ORDER BY SCDJOBNAME'
