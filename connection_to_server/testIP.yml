@@ -17,4 +17,5 @@
 
     - name: debug variable
       debug:
-        msg: ip_listing.row['JOB_STATUS']
+        msg: 
+          " {{ ip_listing.row['JOB_STATUS'] }}"
