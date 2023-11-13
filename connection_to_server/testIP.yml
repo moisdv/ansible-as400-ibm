@@ -10,7 +10,8 @@
   tasks:
 
     - name: list all the ethernet port information
-      ibm.power_ibmi.ibmi_ethernet_port:
+      ibmi_sql_query:
+        sql: "SELECT JOB_NAME,JOB_TYPE,JOB_STATUS,SUBSYSTEM FROM TABLE(QSYS2.ACTIVE_JOB_INFO())"
       register: ip_listing
 
     - name: debug
