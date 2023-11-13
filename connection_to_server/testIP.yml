@@ -19,5 +19,5 @@
       debug:
         msg: |
           "exito"
-      when: EVTW in ip_listing.row 
+      when: "'EVTW' in {{ ip_listing.row }}" 
 
