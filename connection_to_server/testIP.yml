@@ -19,5 +19,5 @@
       debug:
         msg: |
           "La tarea no se encuentra en estado DEQW"
-      when: ip_listing == ""
+      when: ip_listing.row == ""
 
