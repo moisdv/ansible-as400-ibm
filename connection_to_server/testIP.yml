@@ -14,3 +14,8 @@
         sql: "SELECT JOB_NAME,JOB_TYPE,JOB_STATUS,SUBSYSTEM FROM TABLE(QSYS2.ACTIVE_JOB_INFO()) B"
         joblog: true 
       register: ip_listing
+
+    - name: debug variable
+      debug:
+        msg: |
+          "{{ ip_listing }}"
