@@ -17,7 +17,4 @@
 
     - name: debug variable
       debug:
-        msg: |
-          "{{ ip_listing.row }}"
-      when: '"EVTW" in ip_listing.row'
-
+        var: ip_listing.row
