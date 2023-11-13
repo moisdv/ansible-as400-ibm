@@ -10,5 +10,6 @@
   tasks:
 
     - name: Testing
-      ibmi_sql_query:
-        sql: "SELECT SCDJOBNAME,STATUS,SBMTIMSTMP FROM QSYS2.SCHEDULED_JOB_INFOWHERE STATUS <> 'SCHEDULED' ORDER BY SCDJOBNAME"
+      ibmi_job:
+        user: "QSECOFRs"
+        type: "*BATCH"
