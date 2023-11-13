@@ -10,11 +10,13 @@
   tasks:
   
     - name: get jobs in queue
-      ibmi_cl_command:
-        cmd: "(WRKSBSJOB) SBS(*JOBQ)"
-      register: jobs_queue
+      ibmi_sql_query:
+        sql: ""
+        # become_user: ''
+        # become_user_password: ''
+      register: sql_query_output
 
     - name: debug jobs in queue
       debug:
         msg: |
-          "Details: {{ jobs_queue }}"
+          "Details: {{ sql_query_output }}"
