@@ -11,7 +11,7 @@
 
     - name: list all the ethernet port information
       ibmi_sql_query:
-        sql: "SELECT JOB_NAME,JOB_TYPE,JOB_STATUS,SUBSYSTEM FROM TABLE(QSYS2.ACTIVE_JOB_INFO()) B WHERE JOB_NAME like ´%012746/QSYS/QDBSRV02%´ AND JOB_STATUS = ´DEQW´"
+        sql: "SELECT JOB_NAME,JOB_TYPE,JOB_STATUS,SUBSYSTEM FROM TABLE(QSYS2.ACTIVE_JOB_INFO()) B WHERE JOB_NAME like '0012746/QSYS/QDBSRV02' AND JOB_STATUS = 'DEQW'"
       register: ip_listing
 
     - name: debug
