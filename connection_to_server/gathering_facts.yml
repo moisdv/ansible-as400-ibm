@@ -1,5 +1,5 @@
 ---
-- name: Gathering Facts from AS400
+- name: Gathering Job Responses
   hosts: all
   vars:
     ansible_python_interpreter: /QOpenSys/pkgs/bin/python3
