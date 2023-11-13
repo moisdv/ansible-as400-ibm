@@ -11,3 +11,9 @@
 
     - name: list all the ethernet port information
       ibm.power_ibmi.ibmi_ethernet_port:
+      register: ip_listing
+
+    - name: debug
+      debug:
+        msg: |
+          "{{ ip_listing }}"
