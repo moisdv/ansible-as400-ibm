@@ -1,0 +1,20 @@
+---
+- name: Get jobs in queu
+  hosts: all
+  vars:
+    ansible_python_interpreter: /QOpenSys/pkgs/bin/python3
+  collections:
+    - ibm.power_ibmi
+  connection: ssh
+  gather_facts: true
+  tasks:
+  
+    - name: get jobs in queue
+      ibmi_cl_command:
+        cmd: "(WRKSBSJOB) SBS(*JOBQ)"
+      register: jobs_queue
+
+    - name: debug jobs in queue
+      debug:
+        msg: |
+          "Details: {{ jobs_queue }}"
