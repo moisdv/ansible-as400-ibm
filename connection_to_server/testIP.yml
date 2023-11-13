@@ -19,4 +19,5 @@
       debug:
         msg: |
           "{{ ip_listing.row }}"
+      when: EVTW is defined 
 
