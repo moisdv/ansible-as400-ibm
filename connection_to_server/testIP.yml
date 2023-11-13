@@ -9,8 +9,18 @@
   gather_facts: true
   tasks:
 
-    - name: list all the ethernet port information
-      ibmi_sql_query:
-        sql: "SELECT JOB_NAME,JOB_TYPE,JOB_STATUS,SUBSYSTEM FROM TABLE(QSYS2.ACTIVE_JOB_INFO()) B WHERE JOB_NAME like '012739/QSYS/QSYSARB3' AND JOB_STATUS = 'DEQW'"
-        joblog: true 
+    # - name: list all the ethernet port information
+    #   ibmi_sql_query:
+    #     sql: "SELECT JOB_NAME,JOB_TYPE,JOB_STATUS,SUBSYSTEM FROM TABLE(QSYS2.ACTIVE_JOB_INFO()) B WHERE JOB_NAME like '012739/QSYS/QSYSARB3' AND JOB_STATUS = 'DEQW'"
+    #     joblog: true 
       #register: ip_listing
+
+    - name: Get job from cmd 
+      ibmi_cl_command: 
+        cmd: system "wrkactjob"
+      register: job_output
+
+    - name: output
+      debug:
+        msg: |
+          "{{ job_output }}"
