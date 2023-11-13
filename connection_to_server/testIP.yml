@@ -18,6 +18,6 @@
     - name: debug variable
       debug:
         msg: |
-          "La tarea no se encuentra en estado DEQW {{ ip_listing.row }}"
-      when: ip_listing.row == ""
+          "La tarea no se encuentra en estado DEQW"
+      when: ip_listing == ""
 
