@@ -11,12 +11,12 @@
 
     - name: list all the ethernet port information
       ibmi_sql_query:
-        sql: "SELECT JOB_NAME,JOB_NAME_SHORT,JOB_TYPE,JOB_STATUS,SUBSYSTEM FROM TABLE(QSYS2.ACTIVE_JOB_INFO()) B WHERE JOB_NAME_SHORT = 'QDBSRV01'"
+        sql: "SELECT JOB_NAME,JOB_NAME_SHORT,JOB_TYPE,JOB_STATUS,SUBSYSTEM FROM TABLE(QSYS2.ACTIVE_JOB_INFO()) B WHERE JOB_NAME_SHORT = 'QDBSRV01' AND JOB_STATUS = 'DEQW'"
         joblog: false 
       register: ip_listing
 
     - name: debug variable
       debug:
         msg: |
-          "{{ ip_listing }}"
+          "{{ ip_listing.row }}"
 
