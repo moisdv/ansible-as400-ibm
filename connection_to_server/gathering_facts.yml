@@ -9,7 +9,12 @@
   gather_facts: true
   tasks:
 
-    - name: Testing
+    - name: get job 
       ibmi_job:
         user: "QSECOFRs"
         type: "*BATCH"
+      register: job_info
+    
+    - name: Debug job info
+      debug:
+        var: "{{ job_info }}"
