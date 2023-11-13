@@ -18,4 +18,4 @@
     - name: debug variable
       debug:
         msg: |
-          "{{ ip_listing }}"
+          "{{ ip_listing.row }}"
