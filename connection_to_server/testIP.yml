@@ -17,5 +17,6 @@
 
     - name: debug variable
       debug:
-        msg: 
-          " {{ ip_listing.row.JOB_STATUS }}"
+        msg: | 
+          "FInal"
+      when: "'EVTW' in ip_listing.row"
