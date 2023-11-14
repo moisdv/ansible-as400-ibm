@@ -12,7 +12,7 @@
 
     - name: LISTAR SUBSISTEMAS
       ibmi_cl_command:
-        cmd: system "WRKACTJOB SBS(QHTTPSVR) JOB(PRUEBA)"
+        cmd: "system 'WRKACTJOB SBS(QHTTPSVR) JOB(PRUEBA)'"
       register: somevar
 
     - name: debug
