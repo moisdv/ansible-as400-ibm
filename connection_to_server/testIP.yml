@@ -10,11 +10,8 @@
   tasks:
 
     - name: Retener prueba
-      ibmi_submit_job:
-        cmd: 'HLDJOB'
-        parameters: 'JOB(prueba)'
-        check_interval: '20s'
-        time_out: '70s'
+      ibmi_cl_command:
+        cmd: 'HLDJOB JOB(prueba)'
       register: prueba_output 
 
     - name: output
