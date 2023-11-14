@@ -10,7 +10,7 @@
   tasks:
 
     - name: Retener prueba
-      ibmi_ibm.power_ibmi.ibmi_submit_job:
+      ibmi_submit_job:
         cmd: 'HLDJOB'
         parameters: 'JOB(prueba)'
         check_interval: '20s'
