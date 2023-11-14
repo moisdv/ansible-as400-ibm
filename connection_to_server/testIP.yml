@@ -16,4 +16,7 @@
 
     - name: ass
       debug:
-        var: select_job_result
+        msg: |
+          "Hola hola"
+      failed_when:
+        - select_job_result.row | selectattr('JOB_STATUS', 'equalto', 'EVTW') | map(attribute='JOB_STATUS') | list | length == 0
