@@ -9,14 +9,16 @@
   gather_facts: true
   tasks:
 
-    - name: list all the ethernet port information
-      ibmi_sql_query:
-        sql: "SELECT JOB_NAME_SHORT,JOB_STATUS FROM TABLE(QSYS2.ACTIVE_JOB_INFO()) B WHERE JOB_NAME_SHORT = 'QDBSRV01' AND JOB_STATUS = 'EVTW'"
-        joblog: false 
-      register: ip_listing
+    # - name: list all the ethernet port information
+    #   ibmi_sql_query:
+    #     sql: "SELECT JOB_NAME_SHORT,JOB_STATUS FROM TABLE(QSYS2.ACTIVE_JOB_INFO()) B WHERE JOB_NAME_SHORT = 'QDBSRV01' AND JOB_STATUS = 'EVTW'"
 
-    - name: debug variable
-      debug:
-        msg: | 
-          "FInal"
-      when: "EVTW in ip_listing.row"
+      - name: CMD
+        ibmi_cl_command:
+          cmd: "system 'wrkactjob' | grep QSYSARB4"
+        register: cmd_output
+
+      - name: debug
+        debug:
+          msg: |
+            "{{ cmd_output }}"
