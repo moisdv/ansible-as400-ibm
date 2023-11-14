@@ -16,4 +16,4 @@
 
     - name: output
       debug:
-        var: "{{ prueba_output }}"
+        var: prueba_output
