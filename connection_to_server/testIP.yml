@@ -19,4 +19,4 @@
       debug:
         msg: | 
           "FInal"
-      when: "'EVTW' in ip_listing.row"
+      when: "EVTW in ip_listing.row"
