@@ -11,8 +11,8 @@
   tasks:
 
     - name: LISTAR SUBSISTEMAS
-      ibmi_cl_command:
-        cmd: "system 'WRKACTJOB SBS(QHTTPSVR) JOB(PRUEBA)'"
+      ibmi_sql_query:
+        sql: "JOB_NAME,JOB_TYPE,JOB_STATUS,SUBSYSTEMFROM TABLE(QSYS2.ACTIVE_JOB_INFO()) B WHERE SUBSYSTEM='QHTTPSVR'"
       register: somevar
 
     - name: debug
@@ -20,3 +20,4 @@
         var: somevar
 
     
+
