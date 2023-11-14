@@ -9,10 +9,17 @@
   gather_facts: true
   tasks:
 
+    - name: list and filter job information
+      ibmi_sql_query:
+        sql: "SELECT JOB_NAME_SHORT,JOB_STATUS FROM TABLE(QSYS2.ACTIVE_JOB_INFO()) B WHERE JOB_NAME_SHORT = 'PRUEBA'"
+      register: select_job_result
+
     - name: Retener prueba
       ibmi_cl_command:
-        cmd: 'RLSJOB JOB(prueba)'
+        cmd: 'HLDJOB JOB(prueba)'
       register: prueba_output 
+      failed_when:
+        - select_job_result.row | selectattr('JOB_STATUS', '!=', 'DLYW') | map(attribute='JOB_STATUS') | list | length == 0
 
     - name: output
       debug:
