@@ -10,7 +10,12 @@
   gather_facts: true
   tasks:
 
-    - name: VALIDAR QUE NO EXISTE TRABAJO QEJBSVR
+    - name: LISTAR SUBSISTEMAS
       ibmi_display_subsystem:
+      register: somevar
+
+    - name: debug
+      debug:
+        var: somevar
 
     
