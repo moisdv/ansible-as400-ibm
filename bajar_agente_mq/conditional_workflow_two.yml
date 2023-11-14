@@ -1,0 +1,16 @@
+---
+- name: Gathering Job Responses
+  hosts: all
+  vars:
+    ansible_python_interpreter: /QOpenSys/pkgs/bin/python3
+    JOB_NAME: PRUEBA
+  collections:
+    - ibm.power_ibmi
+  connection: ssh
+  gather_facts: true
+  tasks:
+
+    - name: VALIDAR QUE NO EXISTE TRABAJO QEJBSVR
+      ibmi_display_subsystem:
+
+    
