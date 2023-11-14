@@ -9,14 +9,14 @@
   gather_facts: true
   tasks:
 
-    - name: list all the ethernet port information
-      ibmi_sql_query:
-        sql: "SELECT JOB_NAME_SHORT,JOB_STATUS FROM TABLE(QSYS2.ACTIVE_JOB_INFO()) B WHERE JOB_NAME_SHORT = 'QDBSRV01' AND JOB_STATUS = 'EVTW'"
-      register: select_job_result
+    - name: Retener prueba
+      ibmi_ibm.power_ibmi.ibmi_submit_job:
+        cmd: 'HLDJOB'
+        parameters: 'JOB(prueba)'
+        check_interval: '20s'
+        time_out: '70s'
+      register: prueba_output 
 
-    - name: ass
+    - name: output
       debug:
-        msg: |
-          "Hola hola"
-      failed_when:
-        - select_job_result.row | selectattr('JOB_STATUS', 'equalto', 'EVTW') | map(attribute='JOB_STATUS') | list | length == 0
+        var: "{{ prueba_output }}"
