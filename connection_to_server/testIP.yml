@@ -19,7 +19,7 @@
       ibmi_cl_command:
         cmd: 'HLDJOB JOB(prueba)'
       register: prueba_output 
-      when: select_job_result.row | selectattr('JOB_STATUS', '!=' 'HLD') | map(attribute='JOB_STATUS') | list | length == 0
+      when: select_job_result.row | selectattr('JOB_STATUS', '!=', 'HLD') | map(attribute='JOB_STATUS') | list | length == 0
 
     # - name: RESULTADO HOLDEAR TRABAJO
     #   debug:
