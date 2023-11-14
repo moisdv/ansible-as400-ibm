@@ -18,7 +18,7 @@
     - name: RHOLDEAR TRABAJO
       ibmi_cl_command:
         cmd: 'HLDJOB JOB(prueba)'
-      when: "{{ select_job_result.row | selectattr('JOB_STATUS', '!=', 'HLD') | map(attribute='JOB_STATUS') | list | length == 0 }}" 
+      when: select_job_result.row | selectattr('JOB_STATUS', '==', 'HLD') | map(attribute='JOB_STATUS') | list | length == 0 
 
     # - name: RESULTADO HOLDEAR TRABAJO
     #   debug:
@@ -31,6 +31,6 @@
 
     - name: ESTADO TAREA 
       debug:
-        var: "{{ holded_job_status.row | selectattr('JOB_STATUS', 'equalto', 'HLD') | map(attribute='JOB_STATUS') | list | length == 0 }}"
+        var: holded_job_status.row | selectattr('JOB_STATUS', 'equalto', 'HLD') | map(attribute='JOB_STATUS') | list | length == 0
       
 
