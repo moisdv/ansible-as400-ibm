@@ -11,7 +11,7 @@
 
     - name: Retener prueba
       ibmi_cl_command:
-        cmd: 'HLDJOB JOB(prueba)'
+        cmd: 'RLSJOB JOB(prueba)'
       register: prueba_output 
 
     - name: output
