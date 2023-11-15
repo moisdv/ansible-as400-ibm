@@ -14,6 +14,8 @@
       ibmi_end_subsystem:
         subsystem: M400SBS
         how_to_end: '*IMMED'
+      tags:
+      - bajar_subsistema
     
     - name: ESTADO SUBSISTEMA FINALIZADO
       ibmi_display_subsystem:
@@ -23,6 +25,8 @@
       ibmi_start_subsystem:
         subsystem: 400SBS
         library: M400LIB
+      tags:
+      - iniciar_subsistema
 
     - name: ESTADO SUBSISTEMA INICIADO
       ibmi_display_subsystem:
