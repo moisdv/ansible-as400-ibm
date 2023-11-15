@@ -10,13 +10,20 @@
   gather_facts: true
   tasks:
 
-    - name: LISTAR SUBSISTEMAS
-      ibmi_sql_query:
-        sql: "JOB_NAME,JOB_TYPE,JOB_STATUS,SUBSYSTEM FROM TABLE(QSYS2.ACTIVE_JOB_INFO()) B WHERE SUBSYSTEM = 'M400SBS' and JOB_NAME LIKE 'PRUEBA' ORDER BY JOB_NAME"
-      register: somevar
-
-    - name: debug
-      debug:
-        var: somevar
+    - name: FINALIZAR SUBSISTEMA
+      ibmi_end_subsystem:
+        subsystem: M400SBS
+        how_to_end: '*IMMED'
     
+    - name: ESTADO SUBSISTEMA FINALIZADO
+      ibmi_display_subsystem:
+          subsystem: M400SBS
+    
+    - name: INICIAR SUBSISTEMA
+      ibmi_start_subsystem:
+        subsystem: 400SBS
+        library: M400LIB
 
+    - name: ESTADO SUBSISTEMA INICIADO
+      ibmi_display_subsystem:
+          subsystem: M400SBS
