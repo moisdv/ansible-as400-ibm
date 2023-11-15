@@ -25,10 +25,6 @@
     - name: INICIAR SUBSISTEMA
       ibm.power_ibmi.ibmi_cl_command:
         cmd: "QSYS/STRSBS SBSD(M400LIB/M400SBS)"
-
-    - name: ESTADO SUBSISTEMA INICIADO
-      ibmi_display_subsystem:
-        subsystem: M400SBS
       register: subsystem_up
 
     - name: MOSTRAR ESTADO SUBSISTEMA INICIADO
