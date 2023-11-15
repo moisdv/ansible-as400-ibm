@@ -19,7 +19,7 @@
     
     - name: ESTADO SUBSISTEMA FINALIZADO
       ibmi_display_subsystem:
-          subsystem: M400SBS
+        subsystem: M400SBS
     
     - name: INICIAR SUBSISTEMA
       ibmi_start_subsystem:
@@ -30,4 +30,4 @@
 
     - name: ESTADO SUBSISTEMA INICIADO
       ibmi_display_subsystem:
-          subsystem: M400SBS
+        subsystem: M400SBS
