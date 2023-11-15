@@ -11,13 +11,12 @@
   tasks:
 
     - name: LISTAR SUBSISTEMAS
-      ibmi_display_subsystem:
-        subsystem: M400SBS
+      ibmi_sql_query:
+        sql: "JOB_NAME,JOB_TYPE,JOB_STATUS,SUBSYSTEM FROM TABLE(QSYS2.ACTIVE_JOB_INFO()) B WHERE SUBSYSTEM = 'M400SBS' and JOB_NAME LIKE 'PRUEBA' ORDER BY JOB_NAME"
       register: somevar
 
     - name: debug
       debug:
-        msg: "{{ somevar.active_jobs | map(attribute='JOB_NAME') | flatten | map(attribute='JOB_STATUS') | flatten }}"
-
+        var: somevar
     
 
