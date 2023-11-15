@@ -14,8 +14,13 @@
       ibmi_end_subsystem:
         subsystem: M400SBS
         how_to_end: '*IMMED'
+      register: subsystem_down
       tags:
       - bajar_subsistema
+
+    - name: MOSTRAR ESTADO SUBSISTEMA FINALIZADO
+      debug:
+        var: subsystem_down
 
     - name: INICIAR SUBSISTEMA
       ibm.power_ibmi.ibmi_cl_command:
@@ -24,8 +29,8 @@
     - name: ESTADO SUBSISTEMA INICIADO
       ibmi_display_subsystem:
         subsystem: M400SBS
-      register: subsystem_state
+      register: subsystem_up
 
-    - name: MOSTRAR ESTADO
+    - name: MOSTRAR ESTADO SUBSISTEMA INICIADO
       debug:
-        var: subsystem_state
+        var: subsystem_up
