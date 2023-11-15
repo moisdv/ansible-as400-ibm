@@ -10,7 +10,7 @@
   gather_facts: true
   tasks:
     
-    - name: check if
-      ibmi_cl_command:
-        cmd: system "STRSBS SBSD(M400LIB/M400SBS)"
+    - name: prueba
+      ibmi_start_subsystem:
+        subsystem: M400SBS
         
