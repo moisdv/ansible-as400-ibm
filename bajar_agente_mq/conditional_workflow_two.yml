@@ -20,6 +20,7 @@
     - name: ESTADO SUBSISTEMA FINALIZADO
       ibmi_display_subsystem:
         subsystem: M400SBS
+      ignore_errors: true
     
     - name: INICIAR SUBSISTEMA
       ibmi_start_subsystem:
