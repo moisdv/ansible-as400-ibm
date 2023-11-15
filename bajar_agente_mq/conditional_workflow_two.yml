@@ -11,7 +11,8 @@
   tasks:
 
     - name: LISTAR SUBSISTEMAS
-      ibm.power_ibmi.ibmi_display_subsystem:
+      ibmi_sql_query:
+        sql: "SELECT SBSD, STATUS FROM (QSYS2.SUBSYSTEM_INFO) WHERE SBSD = 'M400SBS'"
       register: somevar
 
     - name: debug
