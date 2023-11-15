@@ -17,8 +17,7 @@
 
     - name: debug
       debug:
-        msg: |
-          "{{ somevar.active_jobs | map(attribute='JOB_NAME') | map(attribute='JOB_STATUS') | list }}" 
+        msg: "{{ somevar | map('extract', active_jobs) | map(attribute='JOB_NAME') | flatten | map(attribute='type') | flatten }}"
 
     
 
