@@ -11,6 +11,5 @@
   tasks:
     
     - name: prueba
-      ibmi_start_subsystem:
-        subsystem: M400SBS
-        
+      ibm.power_ibmi.ibmi_cl_command:
+        cmd: "QSYS/STRSBS SBSD(M400LIB/M400SBS)"
