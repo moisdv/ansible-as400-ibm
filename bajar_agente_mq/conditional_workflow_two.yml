@@ -24,3 +24,8 @@
     - name: ESTADO SUBSISTEMA INICIADO
       ibmi_display_subsystem:
         subsystem: M400SBS
+      register: subsystem_state
+
+    - name: MOSTRAR ESTADO
+      debug:
+        var: subsystem_state
