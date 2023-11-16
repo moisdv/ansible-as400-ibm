@@ -10,7 +10,7 @@
   gather_facts: true
   tasks:
   
-    - name: FINALIZAR SUBSISTEMA
+    - name: FINALIZAR SUBSISTEMA MQ 
       ibmi_end_subsystem:
         subsystem: M400SBS
         how_to_end: '*IMMED'
@@ -22,11 +22,16 @@
       debug:
         var: subsystem_down
 
-    - name: INICIAR SUBSISTEMA
+    - name: INICIAR SUBSISTEMA MQ
       ibm.power_ibmi.ibmi_cl_command:
         cmd: "QSYS/STRSBS SBSD(M400LIB/M400SBS)"
       register: subsystem_up
 
-    - name: MOSTRAR ESTADO SUBSISTEMA INICIADO
+    - name: VALIDAR SUBSISTEMA MQ ARRIBA
+      ibmi_cl_command:
+        cmd: "WRKACTJOB SBS(M400SBS) JOB(PRUEBA*)"
+      register: wrk_job
+    
+    - name: output
       debug:
-        var: subsystem_up
+        var: wrk_job.stdout

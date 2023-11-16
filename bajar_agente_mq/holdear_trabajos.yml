@@ -15,7 +15,7 @@
         sql: "SELECT JOB_NAME_SHORT,JOB_STATUS FROM TABLE(QSYS2.ACTIVE_JOB_INFO()) B WHERE JOB_NAME_SHORT = '{{ JOB_NAME }}'"
       register: select_job_result
 
-    - name: RHOLDEAR TRABAJO
+    - name: HOLDEAR TRABAJO
       ibmi_cl_command:
         cmd: 'HLDJOB JOB(prueba)'
       when: select_job_result.row | selectattr('JOB_STATUS', '==', 'HLD') | map(attribute='JOB_STATUS') | list | length == 0

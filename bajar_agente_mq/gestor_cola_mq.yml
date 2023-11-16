@@ -1,0 +1,35 @@
+---
+- name: Gathering Job Responses
+  hosts: all
+  vars:
+    ansible_python_interpreter: /QOpenSys/pkgs/bin/python3
+    gestor_cola_name: NAME
+    listener_name: NAME
+  collections:
+    - ibm.power_ibmi
+  connection: ssh
+  gather_facts: true
+  tasks:
+
+    - name: INICIAR GESTOR DE COLA 
+      ibmi_cl_command:
+        cmd: "STRMQM MQMNAME({{ gestor_cola_name }})"
+
+    - name: VERIFICAR GESTORES ACTIVOS
+      ibmi_cl_command:
+        cmd: "DSPMQMSTS MQMNAME({{ gestor_cola_name }}) Output(*)" 
+      register: active_validation
+    
+    - name: OUTPUT VERFICAR GESTORES ACTIVOS
+      debug:
+        var: active_validation
+
+    - name: VERIFICAR LISTENER RUNNING
+      ibmi_cl_command:
+        cmd: "DSPMQMSTS LSRNAME({{ listener_name }}) MQMNAME({{ gestor_cola_name }}) Output(*)" 
+      register: validate_listener
+
+    - name: OUTPUT VERFICAR GESTORES ACTIVOS
+      debug:
+        var: validate_listener
+
