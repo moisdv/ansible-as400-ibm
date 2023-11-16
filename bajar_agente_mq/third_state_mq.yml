@@ -17,4 +17,4 @@
     
     - name: output
       debug:
-        var: wrk_job
+        var: wrk_job.stdout
