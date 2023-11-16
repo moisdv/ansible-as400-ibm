@@ -14,3 +14,7 @@
       ibmi_cl_command:
         cmd: "WRKACTJOB SBS(M400SBS) JOB(PRUEBA*)"
       register: wrk_job
+    
+    - name: output
+      debug:
+        var: wrk_job
