@@ -25,4 +25,4 @@
       debug:
         msg: |
           "Esto funciona porque encontro la palabra active"
-      when: info_sub.row | selectattr('STATUS', '==', 'ACTIVE') | map(attribute='STATUS') | list | length == 0
+      when: info_sub.row | selectattr('STATUS', 'equalto', 'ACTIVE') | map(attribute='STATUS') | list | length == 0
