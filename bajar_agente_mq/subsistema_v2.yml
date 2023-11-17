@@ -21,4 +21,4 @@
 
     - name: debug
       debug:
-        var: info_sub.row | selectattr('JOB_STATUS', '==', 'ACTIVE') | map(attribute='JOB_STATUS') | list | length == 0
+        var: info_sub.row | map(attribute='JOB_STATUS') | list | length == 0
