@@ -19,10 +19,19 @@
         sql: "SELECT SBSD,STATUS FROM QSYS2.SUBSYSTEM_INFO WHERE SBSD = 'M400SBS'"
       register: info_sub
       tags:
-        = status_sub
+      - status_sub
 
-    - name: debug
-      debug:
-        msg: |
-          "Esto funciona porque encontro la palabra active"
+    # POR VALIDAR CUANTO ESTÉ EL AGENTE
+    - name: START MQ
+      ibmi_cl_command:
+        cmd: "STRMQM MQMNAME()"
       when: info_sub.row | selectattr('STATUS', 'equalto', 'ACTIVE') | map(attribute='STATUS') | list
+
+    - name: DISPLAY MQ STATUS
+      ibmi_cl_command:
+        cmd: "DSPMQMSTS MQMNAME() Output(*)"
+      register: display_mq
+
+    - name: OUTPUT MQ STATUS
+      debug:
+        var: display_mq
