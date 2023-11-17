@@ -1,0 +1,27 @@
+---
+- name: Gathering Job Responses
+  hosts: all
+  vars:
+    ansible_python_interpreter: /QOpenSys/pkgs/bin/python3
+    JOB_NAME: NAME
+    SUBSYS_NAME: NAME
+    SUBSYS_LIB: NAME
+  collections:
+    - ibm.power_ibmi
+  connection: ssh
+  gather_facts: true
+  tasks:
+
+    - name: INICIAR SUBSISTEMA MQ
+      ibm.power_ibmi.ibmi_cl_command:
+        cmd: "QSYS/STRSBS SBSD(M400LIB/M400SBS)"
+      register: subsystem_up
+
+    - name: INFORMACIÓN ESTADO SUBSISTEMA
+      ibmi_sql_query:
+        sql: "SELECT SBSD,STATUS FROM QSYS2.SUBSYSTEM_INFO WHERE SBSD = 'M400SBS'"
+      register: info_sub
+
+    - name: debug
+      debug:
+        var: info_sub
