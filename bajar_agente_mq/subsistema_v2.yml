@@ -9,10 +9,10 @@
   gather_facts: true
   tasks:
 
-    - name: INICIAR SUBSISTEMA MQ
-      ibm.power_ibmi.ibmi_cl_command:
-        cmd: "STRSBS SBSD(M400LIB/M400SBS)"
-      register: subsystem_up
+    # - name: INICIAR SUBSISTEMA MQ
+    #   ibm.power_ibmi.ibmi_cl_command:
+    #     cmd: "STRSBS SBSD(M400LIB/M400SBS)"
+    #   register: subsystem_up
 
     - name: INFORMACIÓN ESTADO SUBSISTEMA
       ibmi_sql_query:
@@ -24,4 +24,5 @@
     - name: debug
       debug:
         msg: |
-          "{{ info_sub.row | map(attribute='JOB_STATUS') | list | length == 0 }}"
+          "Esto funciona porque encontro la palabra active"
+      when: "'ACTIVE' in info_sub.row"
