@@ -18,7 +18,10 @@
       ibmi_sql_query:
         sql: "SELECT SBSD,STATUS FROM QSYS2.SUBSYSTEM_INFO WHERE SBSD = 'M400SBS'"
       register: info_sub
+      tags:
+        = status_sub
 
     - name: debug
       debug:
-        var: info_sub.row | map(attribute='JOB_STATUS') | list | length == 0
+        msg: |
+          "{{ info_sub.row | map(attribute='JOB_STATUS') | list | length == 0 }}"
