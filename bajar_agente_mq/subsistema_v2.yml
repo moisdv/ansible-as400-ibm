@@ -23,7 +23,6 @@
 
     - name: debug
       debug:
-        var: info_sub.row
-      #   msg: |
-      #     "Esto funciona porque encontro la palabra active"
-      # when: info_sub.row | selectattr('JOB_STATUS', '==', 'ACTIVE') | map(attribute='JOB_STATUS') | list | length == 0
+        msg: |
+          "Esto funciona porque encontro la palabra active"
+      when: info_sub.row | selectattr('STATUS', '==', 'ACTIVE') | map(attribute='JOB_STATUS') | list | length == 0
