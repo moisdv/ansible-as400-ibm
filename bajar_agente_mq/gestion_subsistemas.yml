@@ -14,7 +14,7 @@
   
     - name: FINALIZAR SUBSISTEMA MQ 
       ibmi_end_subsystem:
-        subsystem: "M400SBS"
+        subsystem: "{{ SUBSYS_NAME }}"
         how_to_end: '*IMMED'
       register: subsystem_down
       tags:
@@ -26,12 +26,12 @@
 
     - name: INICIAR SUBSISTEMA MQ
       ibm.power_ibmi.ibmi_cl_command:
-        cmd: "QSYS/STRSBS SBSD(M400LIB/M400SBS)"
+        cmd: "QSYS/STRSBS SBSD({{ SUBSYS_LIB }}/{{ SUBSYS_NAME }})"
       register: subsystem_up
 
     - name: VALIDAR SUBSISTEMA MQ ARRIBA
       ibmi_cl_command:
-        cmd: "WRKACTJOB SBS(M400SBS) JOB(PRUEBA*)"
+        cmd: "WRKACTJOB SBS(M400SBS) JOB({{ JOB_NAME }}*)"
       register: wrk_job
     
     - name: output

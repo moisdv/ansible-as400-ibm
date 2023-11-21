@@ -1,5 +1,5 @@
 ---
-- name: HOLDEAR TRABAJOS IBM
+- name: LIBERAR TRABAJO IBM
   hosts: all
   vars:
     ansible_python_interpreter: /QOpenSys/pkgs/bin/python3
@@ -15,22 +15,20 @@
         sql: "SELECT JOB_NAME_SHORT,JOB_STATUS FROM TABLE(QSYS2.ACTIVE_JOB_INFO()) B WHERE JOB_NAME_SHORT = '{{ JOB_NAME }}'"
       register: select_job_result
 
-    - name: HOLDEAR TRABAJO
+    - name: LIBERAR TRABAJO
       ibmi_cl_command:
-        cmd: "HLDJOB JOB({{ JOB_NAME }})"
-      when: select_job_result.row | selectattr('JOB_STATUS', '!=', 'HLD') | map(attribute='JOB_STATUS') | list
+        cmd: "RLSJOB JOB({{ JOB_NAME }})"
+      when: select_job_result.row | selectattr('JOB_STATUS', '==', 'HLD') | map(attribute='JOB_STATUS') | list
       failed_when:
-        - select_job_result.row | selectattr('JOB_STATUS', '==', 'DEQW') | map(attribute='JOB_STATUS') | list
+        - select_job_result.row | selectattr('JOB_STATUS', '!=', 'DEQW') | map(attribute='JOB_STATUS') | list
       tags:
-      - holdear_trabajo
+      - liberar_trabajo
 
-    - name: COMPROBAR ESTADO HOLDEADO
+    - name: COMPROBAR ESTADO LIBERADO
       ibmi_sql_query:
         sql: "SELECT JOB_NAME_SHORT,JOB_STATUS FROM TABLE(QSYS2.ACTIVE_JOB_INFO()) B WHERE JOB_NAME_SHORT = '{{ JOB_NAME }}'"
-      register: holded_job_status
+      register: liberar_job_status
 
     - name: ESTADO TAREA 
       debug:
-        var: holded_job_status.row
-      
-
+        var: liberar_job_status.row

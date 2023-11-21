@@ -1,5 +1,5 @@
 ---
-- name: Gathering Job Responses
+- name: INICIAR SUBSISTEMA
   hosts: all
   vars:
     ansible_python_interpreter: /QOpenSys/pkgs/bin/python3
@@ -20,18 +20,3 @@
       register: info_sub
       tags:
       - status_sub
-
-    # POR VALIDAR CUANTO ESTÉ EL AGENTE
-    - name: START MQ
-      ibmi_cl_command:
-        cmd: "STRMQM MQMNAME()"
-      when: info_sub.row | selectattr('STATUS', 'equalto', 'ACTIVE') | map(attribute='STATUS') | list
-
-    - name: DISPLAY MQ STATUS
-      ibmi_cl_command:
-        cmd: "DSPMQMSTS MQMNAME() Output(*)"
-      register: display_mq
-
-    - name: OUTPUT MQ STATUS
-      debug:
-        var: display_mq

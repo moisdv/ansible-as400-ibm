@@ -1,8 +1,9 @@
 ---
-- name: Gathering Job Responses
+- name: FINALIZAR SUBSISTEMA MQ
   hosts: all
   vars:
     ansible_python_interpreter: /QOpenSys/pkgs/bin/python3
+    SUBSYS_NAME: NAME
   collections:
     - ibm.power_ibmi
   connection: ssh
@@ -11,5 +12,5 @@
   
     - name: FINALIZAR SUBSISTEMA MQ 
       ibmi_end_subsystem:
-        subsystem: "M400SBS"
+        subsystem: "{{ SUBSYS_NAME }}"
         how_to_end: '*IMMED'
