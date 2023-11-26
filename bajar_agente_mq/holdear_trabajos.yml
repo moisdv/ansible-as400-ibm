@@ -19,5 +19,5 @@
 
     - name: ESTADO TAREA 
       debug:
-        var: holded_job_status.row
+        var: holded_job_status
 
