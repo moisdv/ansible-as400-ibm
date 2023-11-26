@@ -19,5 +19,5 @@
 
     - name: ESTADO TAREA 
       debug:
-        var: select_job_result.values() | list 
+        var: select_job_result['JOB_NAME_SHORT']
 
