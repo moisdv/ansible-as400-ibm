@@ -17,7 +17,27 @@
         - CMC500
       register: select_job_result
 
-    - name: Debug
+    - name: HOLDEAR TRABAJO
+      ibmi_cl_command:
+        cmd: "HLDJOB JOB({{ item }})"
+      when: select_job_result.row | selectattr('JOB_STATUS', '!=', 'HLD') | map(attribute='JOB_STATUS') | list
+      failed_when:
+        - select_job_result.row | selectattr('JOB_STATUS', '==', 'DEQW') | map(attribute='JOB_STATUS') | list
+      loop:
+        - CMC499
+        - CMC500
+      tags:
+      - holdear_trabajo
+
+    - name: COMPROBAR ESTADO HOLDEADO
+      ibmi_sql_query:
+        sql: "SELECT JOB_NAME_SHORT,JOB_STATUS FROM TABLE(QSYS2.ACTIVE_JOB_INFO()) B WHERE JOB_NAME_SHORT = '{{ item }}'"
+      loop:
+        - CMC499
+        - CMC500
+      register: holded_job_status
+
+    - name: ESTADO TAREA 
       debug:
-        var: select_job_result
+        var: holded_job_status.row
 
