@@ -3,7 +3,6 @@
   hosts: all
   vars:
     ansible_python_interpreter: /QOpenSys/pkgs/bin/python3
-    JOB_NAME: PRUEBA
   collections:
     - ibm.power_ibmi
   connection: ssh
@@ -12,25 +11,13 @@
 
     - name: INFORMACIÓN ESTADO INICIAL TAREA
       ibmi_sql_query:
-        sql: "SELECT JOB_NAME_SHORT,JOB_STATUS FROM TABLE(QSYS2.ACTIVE_JOB_INFO()) B WHERE JOB_NAME_SHORT = '{{ JOB_NAME }}'"
+        sql: "SELECT JOB_NAME_SHORT,JOB_STATUS FROM TABLE(QSYS2.ACTIVE_JOB_INFO()) B WHERE JOB_NAME_SHORT = '{{ item }}'"
+      loop:
+        - CMC499
+        - CMC500
       register: select_job_result
 
-    - name: HOLDEAR TRABAJO
-      ibmi_cl_command:
-        cmd: "HLDJOB JOB({{ JOB_NAME }})"
-      when: select_job_result.row | selectattr('JOB_STATUS', '==', 'HLD') | map(attribute='JOB_STATUS') | list
-      failed_when:
-        - select_job_result.row | selectattr('JOB_STATUS', '==', 'DEQW') | map(attribute='JOB_STATUS') | list
-      tags:
-      - holdear_trabajo
-
-    - name: COMPROBAR ESTADO HOLDEADO
-      ibmi_sql_query:
-        sql: "SELECT JOB_NAME_SHORT,JOB_STATUS FROM TABLE(QSYS2.ACTIVE_JOB_INFO()) B WHERE JOB_NAME_SHORT = '{{ JOB_NAME }}'"
-      register: holded_job_status
-
-    - name: ESTADO TAREA 
+    - name: Debug
       debug:
-        var: holded_job_status.row
-      
+        var: select_job_result
 
