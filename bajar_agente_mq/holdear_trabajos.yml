@@ -11,10 +11,7 @@
 
     - name: INFORMACIÓN ESTADO INICIAL TAREA
       ibmi_sql_query:
-        sql: "SELECT JOB_NAME_SHORT,JOB_STATUS FROM TABLE(QSYS2.ACTIVE_JOB_INFO()) B WHERE JOB_NAME_SHORT = '{{ item }}'"
-      loop:
-        - CMC499
-        - CMC500
+        sql: "SELECT JOB_NAME_SHORT,JOB_STATUS FROM TABLE(QSYS2.ACTIVE_JOB_INFO()) B WHERE JOB_NAME_SHORT = 'CMC499'"
       loop_control:
         extended: true
       register: select_job_result
