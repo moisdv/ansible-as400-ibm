@@ -17,6 +17,12 @@
         - CM500
       register: select_job_result
 
-    - name: ESTADO TAREA 
-      debug:
-        msg: "{{ select_job_result.results | map(attribute='row') }}"
+    - name: HOLDEAR TRABAJO
+      ibmi_cl_command:
+        cmd: "HLDJOB JOB({{ item }})"
+      when: "'DLYW' in {{ select_job_result.results | map(attribute='row') }}"
+      failed_when:
+        - "'DLYW' in {{ select_job_result.results | map(attribute='row') }}"
+      loop:
+        - CM499
+        - CM500
