@@ -19,4 +19,4 @@
 
     - name: ESTADO TAREA 
       debug:
-        msg: "{{ select_job_result.results ] map(attribute='row') }}"
+        msg: "{{ select_job_result.results | map(attribute='row') }}"
