@@ -16,7 +16,7 @@
 
     - name: INFORMACIÓN ESTADO SUBSISTEMA
       ibmi_sql_query:
-        sql: "SELECT SBSD,STATUS FROM QSYS2.SUBSYSTEM_INFO WHERE SBSD = 'M400SBS'"
+        sql: "SELECT SBSD,STATUS FROM QSYS2.SUBSYSTEM_INFO WHERE SBSD = 'QMQM'"
       register: info_sub
       tags:
       - status_sub
