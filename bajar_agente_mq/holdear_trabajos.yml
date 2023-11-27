@@ -21,9 +21,4 @@
 
     - name: ESTADO TAREA 
       debug:
-        var: "{{ select_job_result.results[ansible_loop.index0 - 1].row }}" 
-      loop: "{{ select_job_result.results }}"
-      loop_control:
-        extended: true
-        label: "{{ ansible_loop.index0 }}"
-
+        var: select_job_result
