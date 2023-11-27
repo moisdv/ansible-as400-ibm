@@ -19,4 +19,4 @@
 
     - name: ESTADO TAREA 
       debug:
-        var: select_job_result.keys()
+        var: select_job_result["results"]["row"] | list
