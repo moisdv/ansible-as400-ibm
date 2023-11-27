@@ -3,7 +3,6 @@
   hosts: all
   vars:
     ansible_python_interpreter: /QOpenSys/pkgs/bin/python3
-    JOB_NAME: CM499
   collections:
     - ibm.power_ibmi
   connection: ssh
@@ -12,7 +11,10 @@
 
     - name: INFORMACIÓN ESTADO INICIAL TAREA
       ibmi_sql_query:
-        sql: "SELECT JOB_NAME_SHORT,JOB_STATUS FROM TABLE(QSYS2.ACTIVE_JOB_INFO()) B WHERE JOB_NAME_SHORT = '{{ JOB_NAME }}'"
+        sql: "SELECT JOB_NAME_SHORT,JOB_STATUS FROM TABLE(QSYS2.ACTIVE_JOB_INFO()) B WHERE JOB_NAME_SHORT = '{{ item }}'"
+      loop:
+        - CM499
+        - CM500
       register: select_job_result
 
     - name: ESTADO TAREA 
