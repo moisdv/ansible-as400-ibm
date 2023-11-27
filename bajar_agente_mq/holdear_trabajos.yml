@@ -19,4 +19,4 @@
 
     - name: ESTADO TAREA 
       debug:
-        var: select_job_result["results"]["row"] | list
+        var: select_job_result.results | dict2items
