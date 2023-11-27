@@ -20,4 +20,4 @@
     - name: ESTADO TAREA 
       debug:
         msg: "{{ select_job_result.results.row }}"
-      loop: "{{ lookup('dict', row) }}"
+      loop: "{{ lookup('dict', results) }}"
