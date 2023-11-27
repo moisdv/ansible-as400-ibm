@@ -19,8 +19,4 @@
 
     - name: ESTADO TAREA 
       debug:
-        var: select_job_result.results | selectattr('JOB_NAME_SHORT', 'equalto', '{{ item }}')
-      loop:
-        - CMC499
-        - CMC500
-
+        var: select_job_result.keys()
