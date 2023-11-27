@@ -15,8 +15,15 @@
       loop:
         - CMC499
         - CMC500
+      loop_control:
+        extended: true
       register: select_job_result
 
     - name: ESTADO TAREA 
       debug:
-        var: select_job_result | dict2items
+        var: "{{ select_job_result.results[ansible_loop.index0 - 1].row }}" 
+      loop: "{{ select_job_result.results }}"
+      loop_control:
+        extended: true
+        label: "{{ ansible_loop.index0 }}"
+
