@@ -19,4 +19,4 @@
 
     - name: HOLDEAR TRABAJO
       debug:
-        var: select_job_result.results | map(attribute='row') | dict2items | selectattr('JOB_STATUS', '==', 'DLYW')
+        var: select_job_result.results | map(attribute='row') 
