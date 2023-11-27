@@ -10,14 +10,11 @@
   gather_facts: true
   tasks:
 
-    - name: INFO JOB
-      ibmi_job:
-        name: "{{ JOB_NAME }}"
-        type: "*BATCH"
-        joblog: true
+    - name: INFORMACIÓN ESTADO INICIAL TAREA
+      ibmi_sql_query:
+        sql: "SELECT JOB_NAME_SHORT,JOB_STATUS FROM TABLE(QSYS2.ACTIVE_JOB_INFO()) B WHERE JOB_NAME_SHORT = '{{ JOB_NAME }}'"
       register: select_job_result
 
     - name: ESTADO TAREA 
       debug:
-        var: select_job_result.job_info
-
+        var: select_job_result
