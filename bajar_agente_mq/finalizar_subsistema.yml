@@ -3,7 +3,7 @@
   hosts: all
   vars:
     ansible_python_interpreter: /QOpenSys/pkgs/bin/python3
-    SUBSYS_NAME: NAME
+    SUBSYS_NAME: QMQM
   collections:
     - ibm.power_ibmi
   connection: ssh
