@@ -20,4 +20,4 @@
     - name: HOLDEAR TRABAJO
       debug:
         var: item
-      loop: "{{ select_job_result | community.general.json.query('results.row[*].JOB_STATUS') }}" 
+      loop: "{{ select_job_result | community.general.json_query('results.row[*].JOB_STATUS') }}" 
