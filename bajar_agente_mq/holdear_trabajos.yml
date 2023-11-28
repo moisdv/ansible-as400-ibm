@@ -19,5 +19,4 @@
 
     - name: HOLDEAR TRABAJO
       debug:
-        msg: "It works"
-      when: "{{ 'DLYW' in select_job_result.results | map(attribute='JOB_STATUS') }}" 
+        var: select_job_result.results | map(attribute='JOB_STATUS')
