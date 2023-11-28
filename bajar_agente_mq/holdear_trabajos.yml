@@ -19,4 +19,5 @@
 
     - name: HOLDEAR TRABAJO
       debug:
-        var: select_job_result.results | map(attribute='row') | selectattr('JOB_STATUS', '==', 'DLYW') | list 
+        var: item
+      loop: "{{ select_job_result | community.general.json.query('results.row[*].JOB_STATUS') }}" 
