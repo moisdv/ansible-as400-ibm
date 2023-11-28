@@ -19,4 +19,5 @@
 
     - name: HOLDEAR TRABAJO
       debug:
-        var: select_job_result.results | map(attribute='row') | dict2items
+        msg: "{{ item.value }}" 
+      loop: "{{ select_job_result.results | map(attribute='row') }}"
