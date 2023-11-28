@@ -19,4 +19,4 @@
 
     - name: HOLDEAR TRABAJO
       debug:
-        var: select_job_result.results | map(attribute='row') | map(attribute='JOB_STATUS'')
+        var: select_job_result.results | map(attribute='row') | map(attribute='JOB_STATUS)
