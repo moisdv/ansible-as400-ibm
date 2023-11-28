@@ -19,5 +19,4 @@
 
     - name: HOLDEAR TRABAJO
       debug:
-        msg: "{{ item.value }}" 
-      loop: "{{ select_job_result.results | map(attribute='row') }}"
+        var: select_job_result.results | map(attribute='row') | map(attribute='JOB_STATUS'')
