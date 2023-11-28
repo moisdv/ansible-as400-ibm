@@ -19,4 +19,5 @@
 
     - name: HOLDEAR TRABAJO
       debug:
-        var: select_job_result.row | flatten | map(attribute='JOB_STATUS')
+        msg: "It works"
+      when: "{{ 'DLYW' in select_job_result.row | map(attribute='JOB_STATUS') }}" 
