@@ -3,20 +3,20 @@
   hosts: all
   vars:
     ansible_python_interpreter: /QOpenSys/pkgs/bin/python3
+    JOB_NAME: CMC499
   collections:
     - ibm.power_ibmi
   connection: ssh
   gather_facts: true
   tasks:
 
-    - name: INFORMACIÓN ESTADO INICIAL TAREA
+    - name: INFORMACIÓN ESTADO INICIAL TAREA CM499
       ibmi_sql_query:
-        sql: "SELECT JOB_NAME_SHORT,JOB_STATUS FROM TABLE(QSYS2.ACTIVE_JOB_INFO()) B WHERE JOB_NAME_SHORT = '{{ item }}'"
-      loop:
-        - CM499
-        - CM500
+        sql: "SELECT JOB_NAME_SHORT,JOB_STATUS FROM TABLE(QSYS2.ACTIVE_JOB_INFO()) B WHERE JOB_NAME_SHORT = '{{ JOB_NAME }}'"
       register: select_job_result
 
-    - name: HOLDEAR TRABAJO
+    - name: HOLDEAR TRABAJO CM499
       debug:
-        var: select_job_result.results 
+        msg: |
+          "La tarea se holdea porque no esta en hld"
+      when: select_job_result.row | selectattr('JOB_STATUS', '!=', 'HLD') | map(attribute='JOB_STATUS') | list
