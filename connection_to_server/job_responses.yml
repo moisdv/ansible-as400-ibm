@@ -12,7 +12,7 @@
 
     - name: VALIDAR CANAL
       ibmi_cl_command:
-        cmd: DSPMQMLSR LSRNAME(QM1LISTENER) MQMNAME(QMQM)
+        cmd: PNGMQMCHL CHLNAME(QM1.TO.QM2) MQMNAME(QM1)
       register: validar_canal
 
     - name: Debug canal
