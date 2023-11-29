@@ -20,4 +20,4 @@
 
     - name: status mq1
       debug:
-        var: mq1_status.stdout | regex_search('.*Queue Manager Status.*', ignorecase=True)
+        msg: "{{ mq1_status.stdout | regex_search('.*Queue Manager Status.*', multiline=True, ignorecase=True) }}"
