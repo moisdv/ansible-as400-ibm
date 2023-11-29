@@ -15,6 +15,8 @@
         sql: "SELECT JOB_NAME_SHORT,JOB_STATUS,SUBSYSTEM FROM TABLE(QSYS2.ACTIVE_JOB_INFO()) B WHERE SUBSYSTEM = 'QMQM' and JOB_NAME_SHORT = '{{ JOB_NAME }}'"
       register: select_job_result
 
-    - name: output
+    - name: VALIDAR SI HAY ESTADO DEWQ
       debug:
-        var: select_job_result
+        msg: |
+          "Los siguientes trabajos tienen el estado DEWQ: {{ select_job_result.row }}"
+      when: select_job_result.row | selectattr('JOB_STATUS', '==', 'DEQW') | map(attribute='JOB_STATUS') | list
