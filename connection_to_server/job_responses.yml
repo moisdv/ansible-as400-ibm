@@ -3,6 +3,7 @@
   hosts: all
   vars:
     ansible_python_interpreter: /QOpenSys/pkgs/bin/python3
+    SBSD: QMQM
   collections:
     - ibm.power_ibmi
   connection: ssh
@@ -13,17 +14,14 @@
     #   ibmi_cl_command:
     #     cmd: ENDMQM MQMNAME(*ALL) OPTION(*IMMED) ENDCCTJOB(*YES) RCDMQMIMG(*NO) TIMEOUT(1)
     
-    - name: CONSULTA GESTOR MQ1
-      ibmi_cl_command:
-        cmd: DSPMQMSTS MQMNAME("{{ item }}") Output(*)
-      loop:
-        - MQ1
-        - MQ2
-      register: mq1_status
+    # - name: CONSULTA GESTOR MQ1
+    #   ibmi_cl_command:
+    #     cmd: DSPMQMSTS MQMNAME(MQ1) Output(*)
+    #   register: mq1_status
 
-    - name: ESTADO GESTOR MQ1
-      debug:
-        msg: "{{ mq1_status.stdout | regex_search('.*RUNNING.*', multiline=True, ignorecase=True) }}"
+    # - name: ESTADO GESTOR MQ1
+    #   debug:
+    #     msg: "{{ mq1_status.stdout | regex_search('.*RUNNING.*', multiline=True, ignorecase=True) }}"
 
     # - name: CONSULTA GESTOR MQ2
     #   ibmi_cl_command:
@@ -33,3 +31,21 @@
     # - name: ESTADO GESTOR MQ2
     #   debug:
     #     msg: "{{ mq1_status.stdout | regex_search('.*RUNNING.*', multiline=True, ignorecase=True) }}"
+
+    # - name: BAJAR SUBSISTEMA
+    #   ibmi_cl_command:
+    #     cmd: ENDSBS SBS(QMQM) OPTION(*IMMED)
+      
+    # - name: VALIDAR SUBSISTEMA ABAJO
+    #   ibmi_cl_command:
+    #     cmd: WRKSBS
+    #   register: subsystem_is_down
+    
+    - name: adasd
+      ibmi_sql_query:
+        sql: "SELECT SBSD,STATUS FROM TABLE(QSYS2.SUBSYSTEM_INFO()) B WHERE SBSD = '{{ SBSD }}'"
+      register: subsys_status
+
+    - name: output
+      debug:
+        var: subsys_status.row
