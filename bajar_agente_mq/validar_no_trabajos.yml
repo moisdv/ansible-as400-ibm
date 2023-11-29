@@ -1,0 +1,20 @@
+---
+- name: INICIAR SUBSISTEMA
+  hosts: all
+  vars:
+    ansible_python_interpreter: /QOpenSys/pkgs/bin/python3
+    JOB_NAME: QEJBSVR
+  collections:
+    - ibm.power_ibmi
+  connection: ssh
+  gather_facts: false
+  tasks:
+
+    - name: VALIDAR TRABAJOS
+      ibmi_sql_query:
+        sql: "SELECT JOB_NAME_SHORT,JOB_STATUS,SUBSYSTEM FROM TABLE(QSYS2.ACTIVE_JOB_INFO()) B WHERE SUBSYSTEM = 'QMQM' and JOB_NAME_SHORT LIKE = '%{{ JOB_NAME }}%'"
+      register: select_job_result
+
+    - name: output
+      debug:
+        var: select_job_result
