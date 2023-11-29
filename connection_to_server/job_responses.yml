@@ -43,7 +43,7 @@
     
     - name: adasd
       ibmi_sql_query:
-        sql: "SELECT SBSD,STATUS FROM TABLE(QSYS2.SUBSYSTEM_INFO()) B WHERE SBSD = '{{ SBSD }}'"
+        sql: "SELECT SBSD,STATUS FROM QSYS2.SUBSYSTEM_INFO WHERE SBSD = '{{ SBSD }}'"
       register: subsys_status
 
     - name: output
