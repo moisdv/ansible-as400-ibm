@@ -9,10 +9,11 @@
   gather_facts: true
   tasks:
 
-    - name: Submit a batch job and run CALL QGPL/PGM1
-      ibmi_submit_job:
-        cmd: 'CALL QMQM/QMQM'
-        parameters: 'JOB(CM499)'
-        check_interval: '30s'
-        time_out: '80s'
-        status: ['*ACTIVE']
+    - name: Display all the active jobs of subsystem QINTER.
+      ibmi_display_subsystem:
+        subsystem: QMQM
+      register: qmqm_status
+
+    - name: display sub status
+      debug:
+        var: qmqm_status
