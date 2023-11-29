@@ -20,7 +20,7 @@
         cmd: "RLSJOB JOB({{ JOB_NAME }})"
       when: select_job_result.row | selectattr('JOB_STATUS', '==', 'HLD') | map(attribute='JOB_STATUS') | list
       failed_when:
-        - select_job_result.row | selectattr('JOB_STATUS', '!=', 'DEQW') | map(attribute='JOB_STATUS') | list
+        - select_job_result.row | selectattr('JOB_STATUS', '==', 'HLD') | map(attribute='JOB_STATUS') | list
       tags:
       - liberar_trabajo
 
