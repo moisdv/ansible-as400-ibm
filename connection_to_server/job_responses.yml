@@ -9,11 +9,15 @@
   gather_facts: true
   tasks:
 
-    - name: Display all the active jobs of subsystem QINTER.
-      ibmi_display_subsystem:
-        subsystem: QMQM
-      register: qmqm_status
+    # - name: FINALIZAR MQMQ
+    #   ibmi_cl_command:
+    #     cmd: ENDMQM MQMNAME(*ALL) OPTION(*IMMED) ENDCCTJOB(*YES) RCDMQMIMG(*NO) TIMEOUT(1)
+    
+    - name: ESTATUS GESTOR MQ1
+      ibmi_cl_command:
+        cmd: DSPMQMSTS MQMNAME(QM1) Output(*)
+      register: mq1_status
 
-    - name: display sub status
+    - name: status mq1
       debug:
-        var: qmqm_status
+        var: mq1_status
