@@ -10,11 +10,11 @@
   gather_facts: false
   tasks:
 
-    - name: VALIDAR CANAL
-      ibmi_cl_command:
-        cmd: PNGMQMCHL CHLNAME(QM1.TO.QM2) MQMNAME(QM1)
-      register: validar_canal
+    - name: VALIDAR 
+      ibmi_sql_query:
+        sql: "SELECT LOCAL_PORT, JOB_NAME, JOB_TYPE, FROM qsys2.netstat_job_info WHERE local_port = '1411' and job_name like '%RUNMQ%'"
+      register: select_job_result
 
     - name: Debug canal
       debug:
-        var: validar_canal
+        var: select_job_result
