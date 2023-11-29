@@ -12,7 +12,7 @@
 
     - name: VALIDAR TRABAJOS
       ibmi_sql_query:
-        sql: "SELECT JOB_NAME_SHORT,JOB_STATUS,SUBSYSTEM FROM TABLE(QSYS2.ACTIVE_JOB_INFO()) B WHERE SUBSYSTEM = 'QMQM' and JOB_NAME_SHORT LIKE = '%{{ JOB_NAME }}%'"
+        sql: "SELECT JOB_NAME_SHORT,JOB_STATUS,SUBSYSTEM FROM TABLE(QSYS2.ACTIVE_JOB_INFO()) B WHERE SUBSYSTEM = 'QMQM' and JOB_NAME_SHORT = '{{ JOB_NAME }}'"
       register: select_job_result
 
     - name: output
