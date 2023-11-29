@@ -20,4 +20,4 @@
 
     - name: status mq1
       debug:
-        var: mq1_status.stdout_lines | map(attribute='Queue Manager Status') | list
+        var: mq1_status.stdout_lines | regex_search('.*STATUS*', multiline=True, ignorecase=True)
