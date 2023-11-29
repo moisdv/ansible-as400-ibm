@@ -20,4 +20,4 @@
 
     - name: status mq1
       debug:
-        var: mq1_status
+        var: mq1_status.stdout_lines | map(attribute='Queue Manager Status') | list
