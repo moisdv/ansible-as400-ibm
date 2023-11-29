@@ -13,11 +13,23 @@
     #   ibmi_cl_command:
     #     cmd: ENDMQM MQMNAME(*ALL) OPTION(*IMMED) ENDCCTJOB(*YES) RCDMQMIMG(*NO) TIMEOUT(1)
     
-    - name: ESTATUS GESTOR MQ1
+    - name: CONSULTA GESTOR MQ1
       ibmi_cl_command:
-        cmd: DSPMQMSTS MQMNAME(QM1) Output(*)
+        cmd: DSPMQMSTS MQMNAME("{{ item }}") Output(*)
+      loop:
+        - MQ1
+        - MQ2
       register: mq1_status
 
-    - name: status mq1
+    - name: ESTADO GESTOR MQ1
       debug:
         msg: "{{ mq1_status.stdout | regex_search('.*RUNNING.*', multiline=True, ignorecase=True) }}"
+
+    # - name: CONSULTA GESTOR MQ2
+    #   ibmi_cl_command:
+    #     cmd: DSPMQMSTS MQMNAME(QM2) Output(*)
+    #   register: mq1_status
+
+    # - name: ESTADO GESTOR MQ2
+    #   debug:
+    #     msg: "{{ mq1_status.stdout | regex_search('.*RUNNING.*', multiline=True, ignorecase=True) }}"
