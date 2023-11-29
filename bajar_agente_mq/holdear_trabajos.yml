@@ -10,21 +10,21 @@
   gather_facts: false
   tasks:
 
-    - name: INFORMACIÓN ESTADO INICIAL TAREA CM499
+    - name: INFORMACIÓN ESTADO INICIAL TAREA
       ibmi_sql_query:
         sql: "SELECT JOB_NAME_SHORT,JOB_STATUS FROM TABLE(QSYS2.ACTIVE_JOB_INFO()) B WHERE JOB_NAME_SHORT = '{{ JOB_NAME }}'"
       register: select_job_result
 
-    - name: HOLDEAR TRABAJO CM499
+    - name: HOLDEAR TRABAJO 
       ibmi_cl_command:
-        cmd: "HLDJOB JOB({{ JOB_NAME }})"
+        cmd: "HLDJOB({{ JOB_NAME }})"
       when: select_job_result.row | selectattr('JOB_STATUS', '!=', 'HLD') | map(attribute='JOB_STATUS') | list
       failed_when:
         - select_job_result.row | selectattr('JOB_STATUS', '==', 'DLYW') | map(attribute='JOB_STATUS') | list
       tags:
       - holdear_trabajo
 
-    - name: COMPROBAR ESTADO HOLDEADO CM499
+    - name: COMPROBAR ESTADO HOLDEADO 
       ibmi_sql_query:
         sql: "SELECT JOB_NAME_SHORT,JOB_STATUS FROM TABLE(QSYS2.ACTIVE_JOB_INFO()) B WHERE JOB_NAME_SHORT = '{{ JOB_NAME }}'"
       register: holded_job_status

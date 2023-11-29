@@ -1,0 +1,61 @@
+---
+- name: BAJAR AGENTE MQ
+  hosts: all
+  vars:
+    ansible_python_interpreter: /QOpenSys/pkgs/bin/python3
+    JOB_NAME: QEJBSVR
+    SBSD: QMQM
+  collections:
+    - ibm.power_ibmi
+  connection: ssh
+  gather_facts: false
+  tasks:
+
+    # - name: VALIDAR TRABAJOS
+    #   ibmi_sql_query:
+    #     sql: "SELECT JOB_NAME_SHORT,JOB_STATUS,SUBSYSTEM FROM TABLE(QSYS2.ACTIVE_JOB_INFO()) B WHERE SUBSYSTEM = 'QMQM' and JOB_NAME_SHORT = '{{ JOB_NAME }}'"
+    #   register: select_job_result
+
+    # - name: VALIDAR SI HAY ESTADO DEWQ
+    #   debug:
+    #     msg: |
+    #       "Los siguientes trabajos tienen el estado DEWQ: {{ select_job_result.row }}"
+    #   when: select_job_result.row | selectattr('JOB_STATUS', '==', 'DEQW') | map(attribute='JOB_STATUS') | list
+
+    - name: FINALIZAR MQMQ
+      ibmi_cl_command:
+        cmd: ENDMQM MQMNAME(*ALL) OPTION(*IMMED) ENDCCTJOB(*YES) RCDMQMIMG(*NO) TIMEOUT(1)
+    
+    - name: CONSULTA GESTOR MQ1
+      ibmi_cl_command:
+        cmd: DSPMQMSTS MQMNAME(MQ1) Output(*)
+      register: mq1_status
+
+    - name: ESTADO GESTOR MQ1
+      debug:
+        msg: "{{ mq1_status.stdout | regex_search('.*RUNNING.*', multiline=True, ignorecase=True) }}"
+
+    - name: CONSULTA GESTOR MQ2
+      ibmi_cl_command:
+        cmd: DSPMQMSTS MQMNAME(QM2) Output(*)
+      register: mq2_status
+
+    - name: ESTADO GESTOR MQ2
+      debug:
+        msg: "{{ mq2_status.stdout | regex_search('.*RUNNING.*', multiline=True, ignorecase=True) }}"
+
+    - name: BAJAR SUBSISTEMA
+      ibmi_cl_command:
+        cmd: ENDSBS SBS(QMQM) OPTION(*IMMED)
+    
+    - name: OBTENIENDO INFORMACIÓN DEL SUBSISTEMA QMQM
+      ibmi_sql_query:
+        sql: "SELECT SBSD,STATUS FROM QSYS2.SUBSYSTEM_INFO WHERE SBSD = '{{ SBSD }}'"
+      register: subsys_status
+
+    - name: VALIDANDO SUBSISTEMA QMQM
+      debug:
+        msg: "El ESTADO DEL SUBSISTEMA ESTÁ INACTIVO"
+      when: subsys_status.row | selectattr('STATUS', '!=', 'ACTIVE') | map(attribute='STATUS') | list
+      failed_when:
+        - subsys_status.row | selectattr('STATUS', '==', 'ACTIVE') | map(attribute='STATUS') | list
