@@ -10,7 +10,7 @@
   tasks:
 
     - name: Submit a batch job and run CALL QGPL/PGM1
-      ibmi_ibm.power_ibmi.ibmi_submit_job:
+      ibmi_submit_job:
         cmd: 'CALL QMQM/QMQM'
         parameters: 'JOB(CM499)'
         check_interval: '30s'
