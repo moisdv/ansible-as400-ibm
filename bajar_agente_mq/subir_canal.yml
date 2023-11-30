@@ -28,7 +28,7 @@
       ibmi_cl_command:
         cmd: QMQM/STRMQMCHL CHLNAME(QM2.TO.QM1) MQMNAME(QM2)
 
-    - name: ESTADO CANAL QM1.TO.QM2
+    - name: ESTADO CANAL QM2.TO.QM1
       ibmi_cl_command:
         cmd: PNGMQMCHL CHLNAME(QM2.TO.QM1) MQMNAME(QM2)
       register: estado_canal
