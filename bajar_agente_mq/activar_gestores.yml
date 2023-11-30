@@ -1,0 +1,22 @@
+---
+- name: ACTIVAR GESTORES QM
+  hosts: all
+  vars:
+    ansible_python_interpreter: /QOpenSys/pkgs/bin/python3
+    GESTOR_UNO: QM1
+    GESTOR_DOS: QM2
+  collections:
+    - ibm.power_ibmi
+  connection: ssh
+  gather_facts: false
+  tasks:
+
+    - name: INICIAR GESTOR DE COLA
+      ibmi_cl_command:
+        cmd: STRMQM MQMNAME("{{ GESTOR_UNO }}")
+      ignore_errors: true
+
+    - name: INICIAR GESTOR DE COLA
+      ibmi_cl_command:
+        cmd: STRMQM MQMNAME("{{ GESTOR_DOS }}")
+      ignore_errors: true
