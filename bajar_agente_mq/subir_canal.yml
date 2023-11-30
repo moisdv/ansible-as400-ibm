@@ -10,6 +10,15 @@
   gather_facts: false
   tasks:
 
-    - name: INICIAR GESTOR DE COLA QM1
+    - name: INICIAR CANAL QM1.TO.QM2
       ibmi_cl_command:
         cmd: QMQM/STRMQMCHL CHLNAME(QM1.TO.QM2) MQMNAME(QM1)
+
+    - name: ESTADO CANAL QM1.TO.QM2
+      ibmi_cl_command:
+        cmd: PNGMQMCHL CHLNAME(QM1.TO.QM2) MQMNAME(QM1)
+      register: estado_canal
+
+    - name: debug
+      debug:
+        var: estado_canal
