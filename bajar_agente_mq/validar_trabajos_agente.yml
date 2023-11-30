@@ -20,4 +20,4 @@
       debug:
         msg: |
           "Los siguientes trabajos tienen el estado DEWQ: {{ select_job_result.row }}"
-      # when: select_job_result.row | selectattr('JOB_STATUS', '==', 'DEQW') | map(attribute='JOB_STATUS') | list
+      when: select_job_result.row | selectattr('JOB_STATUS', '==', 'DEQW') | map(attribute='JOB_STATUS') | list

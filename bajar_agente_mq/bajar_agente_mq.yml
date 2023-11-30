@@ -17,20 +17,24 @@
     - name: CONSULTA GESTOR MQ1
       ibmi_cl_command:
         cmd: DSPMQMSTS MQMNAME(MQ1) Output(*)
+      ignore_errors: true
       register: mq1_status
 
     - name: ESTADO GESTOR MQ1
       debug:
         msg: "{{ mq1_status.stdout | regex_search('.*RUNNING.*', multiline=True, ignorecase=True) }}"
+      ignore_errors: true
 
     - name: CONSULTA GESTOR MQ2
       ibmi_cl_command:
         cmd: DSPMQMSTS MQMNAME(QM2) Output(*)
+      ignore_errors: true
       register: mq2_status
 
     - name: ESTADO GESTOR MQ2
       debug:
         msg: "{{ mq2_status.stdout | regex_search('.*RUNNING.*', multiline=True, ignorecase=True) }}"
+      ignore_errors: true
 
     - name: BAJAR SUBSISTEMA
       ibmi_cl_command:
