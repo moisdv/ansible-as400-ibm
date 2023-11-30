@@ -1,5 +1,5 @@
 ---
-- name: BAJAR AGENTE MQ
+- name: VALIDAR TRABAJO GESTOR MQ
   hosts: all
   vars:
     ansible_python_interpreter: /QOpenSys/pkgs/bin/python3
@@ -20,4 +20,4 @@
       debug:
         msg: |
           "Los siguientes trabajos tienen el estado DEWQ: {{ select_job_result.row }}"
-      when: select_job_result.row | selectattr('JOB_STATUS', '==', 'DEQW') | map(attribute='JOB_STATUS') | list
+      # when: select_job_result.row | selectattr('JOB_STATUS', '==', 'DEQW') | map(attribute='JOB_STATUS') | list
