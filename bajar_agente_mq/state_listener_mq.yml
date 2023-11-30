@@ -10,23 +10,32 @@
   gather_facts: false
   tasks:
 
-    - name: INICIAR MQMQ
-      ibmi_cl_command:
-        cmd: DSPMQMLSR LSRNAME(QM1LISTENER) MQMNAME(QM1)
-      register: state_listener_qm1
+      - name: Get listener state
+        ibmi_sql_query:
+          sql: "SELECT LOCAL_PORT, JOB_NAME. JOB_TYPE FROM qsys2.netstat_job_info WHERE LOCAL_PORT = '1411' and JOB_NAME 'RUNMQ'"
+        register: state_test
 
-    - name: output listener
-      debug:
-        var: state_listener_qm1
+      - name: debug state
+        debug:
+          var: state_test.row
+          
+    # - name: INICIAR MQMQ
+    #   ibmi_cl_command:
+    #     cmd: DSPMQMLSR LSRNAME(QM1LISTENER) MQMNAME(QM1)
+    #   register: state_listener_qm1
 
-    - name: INICIAR MQMQ
-      ibmi_cl_command:
-        cmd: DSPMQMLSR LSRNAME(QM2LISTENER) MQMNAME(QM2)
-      register: state_listener_qm2
+    # - name: output listener
+    #   debug:
+    #     var: state_listener_qm1
 
-    - name: output listener
-      debug:
-        var: state_listener_qm2
+    # - name: INICIAR MQMQ
+    #   ibmi_cl_command:
+    #     cmd: DSPMQMLSR LSRNAME(QM2LISTENER) MQMNAME(QM2)
+    #   register: state_listener_qm2
+
+    # - name: output listener
+    #   debug:
+    #     var: state_listener_qm2
 
 
 

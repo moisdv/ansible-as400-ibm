@@ -1,5 +1,5 @@
 ---
-- name: BAJAR AGENTE MQ
+- name: SUBIR CANALES MQ
   hosts: all
   vars:
     ansible_python_interpreter: /QOpenSys/pkgs/bin/python3
@@ -10,29 +10,20 @@
   gather_facts: false
   tasks:
 
-    # - name: INICIAR CANAL QM1.TO.QM2
-    #   ibmi_cl_command:
-    #     cmd: QMQM/STRMQMCHL CHLNAME(QM1.TO.QM2) MQMNAME(QM1)
-    #   ignore_errors: true
+    - name: INICIAR CANAL QM1.TO.QM2
+      ibmi_cl_command:
+        cmd: QMQM/STRMQMCHL CHLNAME(QM1.TO.QM2) MQMNAME(QM1)
+      ignore_errors: true
 
-    # - name: ESTADO CANAL QM1.TO.QM2
-    #   ibmi_cl_command:
-    #     cmd: PNGMQMCHL CHLNAME(QM1.TO.QM2) MQMNAME(QM1)
-    #   register: estado_canal
-
-    # - name: debug
-    #   debug:
-    #     var: estado_canal
+    - name: debug
+      debug:
+        var: estado_canal
 
     - name: INICIAR CANAL QM2.TO.QM1
       ibmi_cl_command:
         cmd: QMQM/STRMQMCHL CHLNAME(QM2.TO.QM1) MQMNAME(QM2)
-
-    - name: ESTADO CANAL QM2.TO.QM1
-      ibmi_cl_command:
-        cmd: PNGMQMCHL CHLNAME(QM2.TO.QM1) MQMNAME(QM2)
       register: estado_canal
 
-    - name: debug
+    - name: INFORMACIÓN ESTADO DEL CANAL
       debug:
         var: estado_canal
