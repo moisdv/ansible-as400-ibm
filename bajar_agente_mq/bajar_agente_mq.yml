@@ -3,24 +3,12 @@
   hosts: all
   vars:
     ansible_python_interpreter: /QOpenSys/pkgs/bin/python3
-    JOB_NAME: QEJBSVR
     SBSD: QMQM
   collections:
     - ibm.power_ibmi
   connection: ssh
   gather_facts: false
   tasks:
-
-    # - name: VALIDAR TRABAJOS
-    #   ibmi_sql_query:
-    #     sql: "SELECT JOB_NAME_SHORT,JOB_STATUS,SUBSYSTEM FROM TABLE(QSYS2.ACTIVE_JOB_INFO()) B WHERE SUBSYSTEM = 'QMQM' and JOB_NAME_SHORT = '{{ JOB_NAME }}'"
-    #   register: select_job_result
-
-    # - name: VALIDAR SI HAY ESTADO DEWQ
-    #   debug:
-    #     msg: |
-    #       "Los siguientes trabajos tienen el estado DEWQ: {{ select_job_result.row }}"
-    #   when: select_job_result.row | selectattr('JOB_STATUS', '==', 'DEQW') | map(attribute='JOB_STATUS') | list
 
     - name: FINALIZAR MQMQ
       ibmi_cl_command:
