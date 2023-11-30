@@ -3,7 +3,7 @@
   hosts: all
   vars:
     ansible_python_interpreter: /QOpenSys/pkgs/bin/python3
-    JOB_NAME: CMC500
+    JOB_NAME: CMC499
   collections:
     - ibm.power_ibmi
   connection: ssh
@@ -21,6 +21,7 @@
       when: select_job_result.row | selectattr('JOB_STATUS', '==', 'HLD') | map(attribute='JOB_STATUS') | list
       failed_when:
         - select_job_result.row | selectattr('JOB_STATUS', '==', 'HLD') | map(attribute='JOB_STATUS') | list
+      ignore_errors: true
       tags:
       - liberar_trabajo
 
