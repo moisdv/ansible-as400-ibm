@@ -1,0 +1,32 @@
+---
+- name: BAJAR AGENTE MQ
+  hosts: all
+  vars:
+    ansible_python_interpreter: /QOpenSys/pkgs/bin/python3
+    SBSD: QMQM
+  collections:
+    - ibm.power_ibmi
+  connection: ssh
+  gather_facts: false
+  tasks:
+
+    - name: INICIAR MQMQ
+      ibmi_cl_command:
+        cmd: DSPMQMLSR LSRNAME(QM1LISTENER) MQMNAME(QM1)
+      register: state_listener_qm1
+
+    - name: output listener
+      debug:
+        var: state_listener_qm1
+
+    - name: INICIAR MQMQ
+      ibmi_cl_command:
+        cmd: DSPMQMLSR LSRNAME(QM2LISTENER) MQMNAME(QM2)
+      register: state_listener_qm2
+
+    - name: output listener
+      debug:
+        var: state_listener_qm2
+
+
+
