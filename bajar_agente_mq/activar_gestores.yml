@@ -23,7 +23,7 @@
 
     - name: CONSULTA GESTOR MQ1
       ibmi_cl_command:
-        cmd: DSPMQMSTS MQMNAME(MQ1) Output(*)
+        cmd: DSPMQMSTS MQMNAME(QM1) Output(*)
       register: mq1_status
       ignore_errors: true
 
