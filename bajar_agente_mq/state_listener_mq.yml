@@ -12,7 +12,7 @@
 
       - name: Get listener state
         ibmi_sql_query:
-          sql: "SELECT LOCAL_PORT, JOB_NAME, JOB_TYPE FROM qsys2.netstat_job_info WHERE LOCAL_PORT = '1411' and JOB_NAME LIKE '%RUNMQ%'"
+          sql: "SELECT LOCAL_PORT, JOB_NAME JOB_TYPE FROM qsys2.netstat_job_info WHERE LOCAL_PORT = '1411' and JOB_NAME LIKE '%RUNMQ%'"
         register: state_test
 
       - name: debug state

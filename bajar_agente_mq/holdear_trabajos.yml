@@ -21,6 +21,7 @@
       when: select_job_result.row | selectattr('JOB_STATUS', '!=', 'HLD') | map(attribute='JOB_STATUS') | list
       failed_when:
         - select_job_result.row | selectattr('JOB_STATUS', '==', 'DLYW') | map(attribute='JOB_STATUS') | list
+      ignore_errors: true
       tags:
       - holdear_trabajo
 
