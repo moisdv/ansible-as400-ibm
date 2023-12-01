@@ -5,6 +5,7 @@
     ansible_python_interpreter: /QOpenSys/pkgs/bin/python3
     GESTOR_UNO: QM1
     GESTOR_DOS: QM2
+    SBSD: QMQM
   collections:
     - ibm.power_ibmi
   connection: ssh
