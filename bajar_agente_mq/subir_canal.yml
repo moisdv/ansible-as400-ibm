@@ -12,13 +12,13 @@
 
     - name: Validar canal QM1
       ibmi_cl_command:
-        cmd: PNGMQMCHL CHLNAME(QM1.TO.QM2) MQMNAME(QM2)
+        cmd: PNGMQMCHL CHLNAME(QM1.TO.QM2) MQMNAME(QM1)
       ignore_errors: true
       register: validate_qm1_chanel
 
     - name: debug
       debug:
-        var: validate_qm1_chanel.job_log
+        var: validate_qm1_chanel.job_log | selectattr('MESSAGE_ID', '==', 'AMQ9514') | map(attribute='STATUS')
 
     # - name: debug
     #   debug:
