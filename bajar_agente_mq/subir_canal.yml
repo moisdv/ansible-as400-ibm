@@ -13,11 +13,13 @@
     - name: Validar canal QM1
       ibmi_cl_command:
         cmd: PNGMQMCHL CHLNAME(QM1.TO.QM2) MQMNAME(QM1)
+      ignore_errors: true
       register: validate_qm1_chanel
 
     - name: debug
       debug:
-        var: validate_qm1_chanel
+        var: validate_qm1_chanel.job_log | map(attribute='MESSAGE_ID') | regex_search('.*AMQ9514.*', multiline=True, ignorecase=True)
+        
 
     # - name: INICIAR CANAL QM1.TO.QM2
     #   ibmi_cl_command:
