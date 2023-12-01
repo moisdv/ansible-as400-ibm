@@ -32,10 +32,12 @@
     - name: INICIAR GESTOR DE COLA QM1
       ibmi_cl_command:
         cmd: STRMQM MQMNAME("{{ GESTOR_UNO }}")
+      ignore_errors: true
 
-    - name: INICIAR GESTOR DE COLA QM1
+    - name: INICIAR GESTOR DE COLA QM2
       ibmi_cl_command:
         cmd: STRMQM MQMNAME("{{ GESTOR_DOS }}")
+      ignore_errors: true
       
     - name: CONSULTA GESTOR MQ1
       ibmi_cl_command:
