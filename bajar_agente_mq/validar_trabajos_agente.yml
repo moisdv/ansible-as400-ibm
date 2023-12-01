@@ -21,7 +21,7 @@
       debug:
         msg: |
           "Los siguientes trabajos tienen el estado DEWQ: {{ select_job_result.row }}"
-      when: select_job_result.row | selectattr('JOB_STATUS', '==', 'DLYW') | map(attribute='JOB_STATUS') | list
+      when: select_job_result.row | selectattr('JOB_STATUS', '==', 'DEQW') | map(attribute='JOB_STATUS') | list
 
 
 # system 'SELECT JOB_NAME,JOB_TYPE,JOB_STATUS,SUBSYSTEM FROM TABLE(QSYS2.ACTIVE_JOB_INFO()) B WHERE SUBSYSTEM = 'QMQM' and JOB_NAME LIKE '%CMC%' ORDER BY JOB_NAME'
