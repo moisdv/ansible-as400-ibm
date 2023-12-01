@@ -39,6 +39,8 @@
     - name: BAJAR SUBSISTEMA
       ibmi_cl_command:
         cmd: ENDSBS SBS(QMQM) OPTION(*IMMED)
+      tags:
+      - bajar_subsistema
     
     - name: OBTENIENDO INFORMACIÓN DEL SUBSISTEMA QMQM
       ibmi_sql_query:
