@@ -14,16 +14,18 @@
       ibmi_cl_command:
         cmd: QMQM/STRMQMCHL CHLNAME(QM1.TO.QM2) MQMNAME(QM1)
       ignore_errors: true
+      register: estado_canal1
 
     - name: debug
       debug:
-        var: estado_canal
+        var: estado_canal1
 
     - name: INICIAR CANAL QM2.TO.QM1
       ibmi_cl_command:
         cmd: QMQM/STRMQMCHL CHLNAME(QM2.TO.QM1) MQMNAME(QM2)
-      register: estado_canal
+      ignore_errors: true
+      register: estado_canal2
 
     - name: INFORMACIÓN ESTADO DEL CANAL
       debug:
-        var: estado_canal
+        var: estado_canal2
