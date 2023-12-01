@@ -10,22 +10,31 @@
   gather_facts: false
   tasks:
 
-    - name: INICIAR CANAL QM1.TO.QM2
+    - name: Validar canal QM1
       ibmi_cl_command:
-        cmd: QMQM/STRMQMCHL CHLNAME(QM1.TO.QM2) MQMNAME(QM1)
-      ignore_errors: true
-      register: estado_canal1
+        cmd: PNGMQMCHL CHLNAME(QM1.TO.QM2) MQMNAME(QM1)
+      register: validate_qm1_chanel
 
     - name: debug
       debug:
-        var: estado_canal1
+        var: validate_qm1_chanel
 
-    - name: INICIAR CANAL QM2.TO.QM1
-      ibmi_cl_command:
-        cmd: QMQM/STRMQMCHL CHLNAME(QM2.TO.QM1) MQMNAME(QM2)
-      ignore_errors: true
-      register: estado_canal2
+    # - name: INICIAR CANAL QM1.TO.QM2
+    #   ibmi_cl_command:
+    #     cmd: QMQM/STRMQMCHL CHLNAME(QM1.TO.QM2) MQMNAME(QM1)
+    #   ignore_errors: true
+    #   register: estado_canal1
 
-    - name: INFORMACIÓN ESTADO DEL CANAL
-      debug:
-        var: estado_canal2
+    # - name: debug
+    #   debug:
+    #     var: estado_canal1
+
+    # - name: INICIAR CANAL QM2.TO.QM1
+    #   ibmi_cl_command:
+    #     cmd: QMQM/STRMQMCHL CHLNAME(QM2.TO.QM1) MQMNAME(QM2)
+    #   ignore_errors: true
+    #   register: estado_canal2
+
+    # - name: INFORMACIÓN ESTADO DEL CANAL
+    #   debug:
+    #     var: estado_canal2
