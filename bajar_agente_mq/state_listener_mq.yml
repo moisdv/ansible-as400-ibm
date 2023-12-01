@@ -17,7 +17,7 @@
 
       - name: debug state
         debug:
-          var: state_test.row
+          var: state_test.row 
 
     # - name: INICIAR MQMQ
     #   ibmi_cl_command:

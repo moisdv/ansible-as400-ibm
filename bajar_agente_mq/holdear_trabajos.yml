@@ -3,21 +3,24 @@
   hosts: all
   vars:
     ansible_python_interpreter: /QOpenSys/pkgs/bin/python3
-    JOB_NAME: CMC499
+    JOB_CMC_ONE: CMC499
+    JOB_CMC_TWO: CMC500
   collections:
     - ibm.power_ibmi
   connection: ssh
   gather_facts: false
   tasks:
 
-    - name: INFORMACIÓN ESTADO INICIAL TAREA
+# HOLDEAR TRABAJO CMC499 
+
+    - name: INFORMACIÓN ESTADO INICIAL TAREA CMC499
       ibmi_sql_query:
-        sql: "SELECT JOB_NAME_SHORT,JOB_STATUS FROM TABLE(QSYS2.ACTIVE_JOB_INFO()) B WHERE JOB_NAME_SHORT = '{{ JOB_NAME }}'"
+        sql: "SELECT JOB_NAME_SHORT,JOB_STATUS FROM TABLE(QSYS2.ACTIVE_JOB_INFO()) B WHERE JOB_NAME_SHORT = '{{ JOB_CMC_ONE }}'"
       register: select_job_result
 
-    - name: HOLDEAR TRABAJO 
+    - name: HOLDEAR TRABAJO CMC499
       ibmi_cl_command:
-        cmd: "HLDJOB JOB({{ JOB_NAME }})"
+        cmd: "HLDJOB JOB({{ JOB_CMC_ONE }})"
       when: select_job_result.row | selectattr('JOB_STATUS', '!=', 'HLD') | map(attribute='JOB_STATUS') | list
       failed_when:
         - select_job_result.row | selectattr('JOB_STATUS', '==', 'DLYW') | map(attribute='JOB_STATUS') | list
@@ -25,13 +28,38 @@
       tags:
       - holdear_trabajo
 
-    - name: COMPROBAR ESTADO HOLDEADO 
+    - name: COMPROBAR ESTADO HOLDEADO CMC499
       ibmi_sql_query:
-        sql: "SELECT JOB_NAME_SHORT,JOB_STATUS FROM TABLE(QSYS2.ACTIVE_JOB_INFO()) B WHERE JOB_NAME_SHORT = '{{ JOB_NAME }}'"
+        sql: "SELECT JOB_NAME_SHORT,JOB_STATUS FROM TABLE(QSYS2.ACTIVE_JOB_INFO()) B WHERE JOB_NAME_SHORT = '{{ JOB_CMC_ONE }}'"
       register: holded_job_status
 
-    - name: ESTADO TAREA 
+    - name: ESTADO TAREA CMC499
       debug:
         var: holded_job_status.row
 
+# HOLDEAR TRABAJO CMC500
+
+    - name: INFORMACIÓN ESTADO INICIAL TAREA CMC500
+      ibmi_sql_query:
+        sql: "SELECT JOB_NAME_SHORT,JOB_STATUS FROM TABLE(QSYS2.ACTIVE_JOB_INFO()) B WHERE JOB_NAME_SHORT = '{{ JOB_CMC_TWO }}'"
+      register: select_job_result
+
+    - name: HOLDEAR TRABAJO CMC500
+      ibmi_cl_command:
+        cmd: "HLDJOB JOB({{ JOB_CMC_TWO }})"
+      when: select_job_result.row | selectattr('JOB_STATUS', '!=', 'HLD') | map(attribute='JOB_STATUS') | list
+      failed_when:
+        - select_job_result.row | selectattr('JOB_STATUS', '==', 'DLYW') | map(attribute='JOB_STATUS') | list
+      ignore_errors: true
+      tags:
+      - holdear_trabajo
+
+    - name: COMPROBAR ESTADO HOLDEADO CMC500
+      ibmi_sql_query:
+        sql: "SELECT JOB_NAME_SHORT,JOB_STATUS FROM TABLE(QSYS2.ACTIVE_JOB_INFO()) B WHERE JOB_NAME_SHORT = '{{ JOB_CMC_TWO }}'"
+      register: holded_job_status
+
+    - name: ESTADO TAREA CMC500
+      debug:
+        var: holded_job_status.row
         
