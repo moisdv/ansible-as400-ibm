@@ -18,7 +18,7 @@
 
     - name: debug
       debug:
-        var: validate_qm1_chanel.job_log | selectattr('MESSAGE_ID', '==', 'AMQ9514') | map(attribute='STATUS')
+        var: validate_qm1_chanel.job_log
 
     # - name: debug
     #   debug:
