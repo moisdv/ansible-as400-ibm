@@ -1,5 +1,5 @@
 ---
-- name: BAJAR AGENTE MQ
+- name: SUBIR AGENTE MQ
   hosts: all
   vars:
     ansible_python_interpreter: /QOpenSys/pkgs/bin/python3
