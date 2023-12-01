@@ -18,7 +18,7 @@
 
     - name: debug
       debug:
-        var: validate_qm1_chanel.job_log | selectattr('MESSAGE_ID', '==', 'AMQ8020') | map(attribute='MESSAGE_ID') | list
+        var: validate_qm1_chanel.job_log | map(attribute='MESSAGE_ID') 
 
     # - name: debug
     #   debug:
