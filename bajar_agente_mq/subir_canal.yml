@@ -18,7 +18,7 @@
 
     - name: debug
       debug:
-        var: validate_qm1_chanel.job_log | map(attribute='MESSAGE_ID') 
+        var: validate_qm1_chanel.job_log
 
     # - name: debug
     #   debug:
