@@ -18,9 +18,7 @@
 
     - name: debug
       debug:
-        msg: |
-          "El canal se encuentra abajo"
-      when: validate_qm1_chanel.job_log | selectattr('MESSAGE_ID', '==', 'AMQ8020') | map(attribute='STATUS') | list
+        var: validate_qm1_chanel.job_log | selectattr('MESSAGE_ID', '==', 'AMQ8020') | map(attribute='STATUS') | list
 
     # - name: debug
     #   debug:
