@@ -18,8 +18,15 @@
 
     - name: debug
       debug:
-        var: validate_qm1_chanel.job_log | map(attribute='MESSAGE_ID') | regex_search('.*AMQ9514.*', ignorecase=True)
-        
+        msg: |
+          "El canal se encuentra abajo"
+      when: validate_qm1_chanel.job_log | selectattr('MESSAGE_ID', '==', 'AMQ8020') | map(attribute='STATUS') | list
+
+    # - name: debug
+    #   debug:
+    #     msg: |
+    #       "El canal se encuentra arriba"
+    #   when: validate_qm1_chanel.job_log | selectattr('MESSAGE_ID', '==', 'AMQ9514') | map(attribute='STATUS') | list
 
     # - name: INICIAR CANAL QM1.TO.QM2
     #   ibmi_cl_command:
