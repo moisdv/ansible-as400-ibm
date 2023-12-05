@@ -13,7 +13,7 @@
     - name: Validar canal QM1
       ibmi_cl_command:
         cmd: PNGMQMCHL CHLNAME(QM1.TO.QM2) MQMNAME(QM1)
-        job_log: true
+        joblog: true
       ignore_errors: true
       register: validate_qm1_chanel
 
