@@ -1,5 +1,5 @@
 ---
-- name: SUBIR CANALES MQ
+- name: ESTADO CANALES QM1 Y QM2
   hosts: all
   vars:
     ansible_python_interpreter: /QOpenSys/pkgs/bin/python3
