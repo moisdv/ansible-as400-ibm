@@ -19,8 +19,7 @@
 
     - name: debug
       debug:
-
-      when: validate_qm1_chanel.job_log | regex_search('AMQ8020', ignorecase=True)
+        var: validate_qm1_chanel.job_log | regex_search('AMQ8020', ignorecase=True)
 
     # - name: debug
     #   debug:
