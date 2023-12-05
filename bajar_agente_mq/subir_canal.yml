@@ -19,9 +19,7 @@
 
     - name: debug
       debug:
-        var: validate_qm1_chanel.job_log | selectattr('MESSAGE_ID', '==', 'AMQ8020')
-        
-    # | regex_search('.*AMQ8020.*', multiline=True, ignorecase=True)
+        var: validate_qm1_chanel.job_log | selectattr('MESSAGE_ID', '==', 'AMQ8020') | regex_search('AMQ8020', ignorecase=True)
 
     # - name: debug
     #   debug:
