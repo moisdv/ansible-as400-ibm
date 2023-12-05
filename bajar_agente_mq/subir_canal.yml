@@ -10,22 +10,25 @@
   gather_facts: false
   tasks:
 
-    - name: Validar canal QM1
+    - name: VALIDAR CANAL QM1
       ibmi_cl_command:
         cmd: PNGMQMCHL CHLNAME(QM1.TO.QM2) MQMNAME(QM1)
         joblog: true
       ignore_errors: true
       register: validate_qm1_chanel
 
-    - name: debug
+    - name: ESTADO CANAL QM1 (INACTIVO)
       debug:
-        var: validate_qm1_chanel.job_log | regex_search('AMQ8020', ignorecase=True)
+        msg: |
+          "EL LISTENER NO SE ENCUENTRA ACTIVO: CODIGO (AMQ8020)"
+      when: validate_qm1_chanel.job_log | regex_search('AMQ8020', ignorecase=True)
 
-    # - name: debug
-    #   debug:
-    #     msg: |
-    #       "El canal se encuentra arriba"
-    #   when: validate_qm1_chanel.job_log | selectattr('MESSAGE_ID', '==', 'AMQ9514') | map(attribute='STATUS') | list
+
+    - name: ESTADO CANAL QM1 (ACTIVO)
+      debug:
+        msg: |
+          "EL LISTENER SE ENCUENTRA ACTIVO: CODIGO (AMQ9514)"
+      when: validate_qm1_chanel.job_log | regex_search('AMQ9514', ignorecase=True)
 
     # - name: INICIAR CANAL QM1.TO.QM2
     #   ibmi_cl_command:
