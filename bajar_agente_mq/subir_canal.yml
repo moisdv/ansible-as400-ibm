@@ -19,7 +19,9 @@
 
     - name: debug
       debug:
-        var: validate_qm1_chanel.job_log | regex_search('.*AMQ8020.*', multiline=True, ignorecase=True)
+        var: validate_qm1_chanel.job_log | map(attribute='AMQ8020')
+        
+    # | regex_search('.*AMQ8020.*', multiline=True, ignorecase=True)
 
     # - name: debug
     #   debug:
