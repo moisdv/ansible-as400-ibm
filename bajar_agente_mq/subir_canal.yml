@@ -19,9 +19,7 @@
 
     - name: debug
       debug:
-        msg: |
-          "CANAL OPERATIVO"
-      when: validate_qm1_chanel.job_log | selectattr('MESSAGE_ID', '==', 'AMQ8020') | map(attribute='MESSAGE_ID')
+        var: validate_qm1_chanel.job_log | selectattr('MESSAGE_ID', '==', 'AMQ8020') | map(attribute='MESSAGE_ID')
 
     # - name: debug
     #   debug:
